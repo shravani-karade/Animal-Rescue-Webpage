@@ -1,109 +1,35 @@
-const reportForm = document.getElementById("reportForm");
+// ================= REPORT SYSTEM =================
+
+const form = document.getElementById("reportForm");
 const reportsList = document.getElementById("reportsList");
-const helpList = document.getElementById("helpList");
-const contactInput = document.getElementById("contact");
-const contactError = document.getElementById("contactError");
-const filterButtons = document.querySelectorAll(".filter-btn");
+const phone = document.getElementById("contact");
+const error = document.getElementById("contactError");
 
 
-// ===== PHONE VALIDATION =====
-
-function isValidPhone(phone) {
-    return /^[0-9]{10}$/.test(phone);
-}
-
-contactInput.addEventListener("input", () => {
-
-    contactInput.value = contactInput.value
-        .replace(/\D/g, "")
-        .slice(0, 10);
-
-    contactError.textContent =
-        contactInput.value && !isValidPhone(contactInput.value)
-        ? "Enter a valid 10-digit mobile number."
-        : "";
-});
-
-
-// ===== REPORT FORM =====
-
-reportForm.addEventListener("submit", (e) => {
-
-    e.preventDefault();
-
-    if (!isValidPhone(contactInput.value)) {
-        contactError.textContent = "Enter a valid 10-digit mobile number.";
-        contactInput.focus();
-        return;
-    }
-
-    const report = {
-        id: Date.now(),
-        animalType: document.getElementById("animalType").value,
-        location: document.getElementById("location").value,
-        description: document.getElementById("description").value,
-        reporterName: document.getElementById("reporterName").value,
-        contact: contactInput.value
-    };
-
-    const reports = getReports();
-    reports.push(report);
-
-    localStorage.setItem("strayReports", JSON.stringify(reports));
-
-    displayReports();
-    reportForm.reset();
-
-    alert("Report submitted successfully! 🐾");
-});
-
-
-// ===== REPORT STORAGE =====
-
+// Get saved reports
 function getReports() {
-    return JSON.parse(localStorage.getItem("strayReports")) || [];
+    return JSON.parse(localStorage.getItem("reports")) || [];
 }
 
-function displayReports() {
+
+// Show reports on webpage
+function showReports() {
 
     const reports = getReports();
 
     reportsList.innerHTML = "";
 
-    if (reports.length === 0) {
-        reportsList.innerHTML =
-            '<p class="empty-message">No reports yet. Be the first to help!</p>';
-        return;
-    }
-
-    reports.slice().reverse().forEach(report => {
+    reports.reverse().forEach(report => {
 
         const card = document.createElement("div");
         card.className = "report-card";
 
         card.innerHTML = `
-            <button class="delete-btn"
-                    onclick="deleteReport(${report.id})">
-                Delete
-            </button>
-
-            <h3>${escapeHTML(report.animalType)}</h3>
-
-            <p><b>Location:</b>
-                ${escapeHTML(report.location)}
-            </p>
-
-            <p><b>Condition:</b>
-                ${escapeHTML(report.description)}
-            </p>
-
-            <p><b>Reported by:</b>
-                ${escapeHTML(report.reporterName)}
-            </p>
-
-            <p><b>Contact:</b>
-                ${escapeHTML(report.contact)}
-            </p>
+            <h3>🐾 ${report.animal}</h3>
+            <p><b>Location:</b> ${report.location}</p>
+            <p><b>Condition:</b> ${report.condition}</p>
+            <p><b>Reported by:</b> ${report.name}</p>
+            <p><b>Contact:</b> ${report.phone}</p>
         `;
 
         reportsList.appendChild(card);
@@ -111,130 +37,186 @@ function displayReports() {
 }
 
 
-// ===== DELETE REPORT =====
+// Phone validation
+phone.addEventListener("input", function () {
 
-function deleteReport(id) {
+    phone.value = phone.value
+        .replace(/\D/g, "")
+        .slice(0, 10);
 
-    if (!confirm("Delete this report?")) return;
+    error.textContent =
+        phone.value.length === 10
+        ? ""
+        : "Enter a valid 10-digit number.";
+});
 
-    const reports = getReports()
-        .filter(report => report.id !== id);
+
+// Submit report
+form.addEventListener("submit", function(event) {
+
+    event.preventDefault();
+
+    if (phone.value.length !== 10) {
+        error.textContent = "Enter a valid 10-digit number.";
+        return;
+    }
+
+    const report = {
+        animal: document.getElementById("animalType").value,
+        location: document.getElementById("location").value,
+        condition: document.getElementById("description").value,
+        name: document.getElementById("reporterName").value,
+        phone: phone.value
+    };
+
+    const reports = getReports();
+
+    reports.push(report);
 
     localStorage.setItem(
-        "strayReports",
+        "reports",
         JSON.stringify(reports)
     );
 
-    displayReports();
-}
+    form.reset();
+    showReports();
+
+    alert("Report submitted successfully! 🐾");
+});
 
 
-// ===== PREVENT HTML INJECTION =====
+// ================= HEALTH GUIDE =================
 
-function escapeHTML(text) {
+const healthData = {
 
-    const div = document.createElement("div");
-    div.textContent = text;
-    return div.innerHTML;
-}
+    cold: [
+        "🤧 Cold / Sneezing",
+        "Keep the animal warm and dry. Provide clean water. If breathing becomes difficult, contact a veterinarian."
+    ],
+
+    wound: [
+        "🩹 Small Wound",
+        "Keep the area clean and prevent further injury. Avoid unknown medicines. Deep wounds need veterinary care."
+    ],
+
+    water: [
+        "💧 Dehydration",
+        "Provide clean drinking water and keep the animal in a cool place. Severe weakness needs professional help."
+    ],
+
+    heat: [
+        "☀️ Heat Stress",
+        "Move the animal to shade and provide water. Heavy panting, weakness or collapse needs urgent veterinary help."
+    ],
+
+    ticks: [
+        "🐜 Ticks / Fleas",
+        "Do not use random chemicals or human medicines. Ask a veterinarian about safe treatment."
+    ],
+
+    injury: [
+        "🦴 Injury",
+        "Keep the animal still and away from traffic. Do not try to straighten broken bones. Contact a vet or rescue team."
+    ]
+};
 
 
-// ===== HELP DIRECTORY =====
+const healthSelect = document.getElementById("healthSelect");
+const healthResult = document.getElementById("healthResult");
 
-const helpDirectory = [
+healthSelect.addEventListener("change", function() {
+
+    const data = healthData[this.value];
+
+    if (!data) return;
+
+    healthResult.innerHTML = `
+        <h3>${data[0]}</h3>
+        <p>${data[1]}</p>
+    `;
+});
+
+
+// ================= NGO + VET DIRECTORY =================
+
+const helpData = [
 
     {
-        name: "Bombay SPCA (BSPCA)",
+        name: "Bombay SPCA",
+        type: "Veterinary Hospital",
         area: "south",
-        areaLabel: "South Mumbai",
-        locality: "Parel",
-        phone: "022-24137518",
-        note: "Rescue operations, hospital, ambulance service and animal welfare support."
+        location: "Parel",
+        phone: "+91 85916 59398"
     },
 
     {
-        name: "Welfare of Stray Dogs (WSD)",
-        area: "south",
-        areaLabel: "South Mumbai",
-        locality: "Lower Parel",
-        phone: "089760 22838",
-        note: "Stray dog care, adoption and animal welfare programs."
-    },
-
-    {
-        name: "Save Our Strays (SOS)",
+        name: "Animal Matter To Me",
+        type: "Rescue NGO + Hospital",
         area: "western",
-        areaLabel: "Western Suburbs",
-        locality: "Andheri West",
-        phone: "Search online",
-        note: "Sterilization, rescue and stray animal support."
+        location: "Malad West",
+        phone: "+91 99207 37737"
     },
 
     {
-        name: "World For All (WFA)",
+        name: "YODA",
+        type: "Animal Rescue NGO",
         area: "western",
-        areaLabel: "Western Suburbs",
-        locality: "Andheri / Goregaon / Jogeshwari / Juhu",
-        phone: "9820001506",
-        note: "Animal treatment, rescues and adoption support."
-    },
-
-    {
-        name: "Animals Matter to Me (AMTM)",
-        area: "western",
-        areaLabel: "Western Suburbs",
-        locality: "Malad West",
-        phone: "99677 95660",
-        note: "Shelter, medical care, foster care and rescue support."
-    },
-
-    {
-        name: "Youth Organisation in Defence of Animals (YODA)",
-        area: "western",
-        areaLabel: "Western Suburbs",
-        locality: "Mahim West",
-        phone: "88999 97704",
-        note: "Rescue, rehabilitation, medical aid and adoption."
-    },
-
-    {
-        name: "In Defence of Animals (IDA)",
-        area: "other",
-        areaLabel: "Eastern / Navi Mumbai",
-        locality: "Deonar",
-        phone: "9320056581",
-        note: "Animal medical care, sterilization and rescue support."
-    },
-
-    {
-        name: "Mumbai Animal Association (MAA)",
-        area: "other",
-        areaLabel: "Central Suburbs",
-        locality: "Kandivali / Borivali / Dahisar",
-        phone: "8655370005",
-        note: "On-road treatment and hospitalization support."
+        location: "Khar West",
+        phone: "Check current helpline"
     },
 
     {
         name: "RAWW",
-        area: "other",
-        areaLabel: "Central / Thane",
-        locality: "Mulund / Chembur / Thane",
-        phone: "Search online",
-        note: "Wildlife rescue and human-wildlife conflict response."
+        type: "Wildlife Rescue",
+        area: "central",
+        location: "Mulund",
+        phone: "+91 76666 80202"
+    },
+
+    {
+        name: "IDA India",
+        type: "Animal Welfare",
+        area: "central",
+        location: "Deonar",
+        phone: "+91 93200 56581"
+    },
+
+    {
+        name: "The Feline Foundation",
+        type: "Veterinary Clinic",
+        area: "western",
+        location: "Versova, Andheri West",
+        phone: "Check current contact"
+    },
+
+    {
+        name: "Superpets",
+        type: "24×7 Veterinary Hospital",
+        area: "western",
+        location: "Khar West",
+        phone: "+91 98211 12746"
+    },
+
+    {
+        name: "PetZone Veterinary Clinic",
+        type: "24×7 Animal Hospital",
+        area: "south",
+        location: "Mahalaxmi",
+        phone: "+91 77009 57393"
     }
 ];
 
 
-// ===== DISPLAY HELP =====
+// Display NGOs and vets
+function showHelp(area = "all") {
 
-function displayHelp(filter = "all") {
+    const list = document.getElementById("helpList");
 
-    helpList.innerHTML = "";
+    const results = area === "all"
+        ? helpData
+        : helpData.filter(item => item.area === area);
 
-    const results = filter === "all"
-        ? helpDirectory
-        : helpDirectory.filter(item => item.area === filter);
+    list.innerHTML = "";
 
     results.forEach(item => {
 
@@ -243,49 +225,36 @@ function displayHelp(filter = "all") {
         card.className = "help-card";
 
         card.innerHTML = `
-            <h3>
-                ${escapeHTML(item.name)}
-                <span class="area-tag">
-                    ${escapeHTML(item.areaLabel)}
-                </span>
-            </h3>
+            <span class="area">${item.area.toUpperCase()}</span>
 
-            <p><b>Locality:</b>
-                ${escapeHTML(item.locality)}
-            </p>
+            <h3>${item.name}</h3>
 
-            <p><b>Contact:</b>
-                ${escapeHTML(item.phone)}
-            </p>
-
-            <p>${escapeHTML(item.note)}</p>
+            <p><b>Type:</b> ${item.type}</p>
+            <p><b>Location:</b> ${item.location}</p>
+            <p><b>Contact:</b> ${item.phone}</p>
         `;
 
-        helpList.appendChild(card);
+        list.appendChild(card);
     });
 }
 
 
-// ===== FILTERS =====
+// Area filter buttons
+document.querySelectorAll(".filter-btn").forEach(button => {
 
-filterButtons.forEach(button => {
+    button.addEventListener("click", function() {
 
-    button.addEventListener("click", () => {
+        document.querySelectorAll(".filter-btn")
+            .forEach(btn => btn.classList.remove("active"));
 
-        filterButtons.forEach(b =>
-            b.classList.remove("active")
-        );
+        this.classList.add("active");
 
-        button.classList.add("active");
-
-        displayHelp(button.dataset.area);
+        showHelp(this.dataset.area);
     });
 });
 
 
-// ===== SCROLL ANIMATION =====
-
-const sections = document.querySelectorAll(".section");
+// ================= SCROLL ANIMATION =================
 
 const observer = new IntersectionObserver(entries => {
 
@@ -299,14 +268,11 @@ const observer = new IntersectionObserver(entries => {
 
 }, { threshold: 0.15 });
 
-sections.forEach(section => observer.observe(section));
+
+document.querySelectorAll(".section")
+    .forEach(section => observer.observe(section));
 
 
-// ===== LOAD DATA =====
-
-window.addEventListener("DOMContentLoaded", () => {
-
-    displayReports();
-    displayHelp();
-
-});
+// Load data when website opens
+showReports();
+showHelp();
