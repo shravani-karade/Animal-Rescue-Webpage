@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RescuePaws | Animal Rescue</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<nav>
+    <b>🐾 RescuePaws</b>
+
+    <div>
+        <a href="#home">Home</a>
+        <a href="#report">Report</a>
+        <a href="#reports">Reports</a>
+        <a href="#help">Help</a>
+    </div>
+</nav>
+
+<!-- HOME -->
+<section id="home" class="hero">
+    <div>
+        <p class="tag">EVERY ANIMAL DESERVES A CHANCE</p>
+
+        <h1>Help. Rescue.<br><span>Protect.</span></h1>
+
+        <p>
+            Report injured, abandoned or stray animals
+            and connect with nearby animal welfare organizations.
+        </p>
+
+        <a href="#report" class="btn">Report an Animal →</a>
+    </div>
+</section>
+
+<!-- REPORT -->
+<section id="report" class="section">
+    <small>01 — REPORT</small>
+
+    <h2>Report an <span>Animal</span></h2>
+
+    <form id="reportForm">
+
+        <select id="animalType" required>
+            <option value="">Select animal</option>
+            <option>Dog</option>
+            <option>Cat</option>
+            <option>Bird</option>
+            <option>Cow</option>
+            <option>Other</option>
+        </select>
+
+        <input id="location" type="text"
+               placeholder="Location"
+               required>
+
+        <textarea id="description"
+                  placeholder="Describe the animal's condition"
+                  required></textarea>
+
+        <input id="reporterName"
+               type="text"
+               placeholder="Your name"
+               required>
+
+        <input id="contact"
+               type="tel"
+               placeholder="10-digit mobile number"
+               maxlength="10"
+               required>
+
+        <p id="contactError" class="error"></p>
+
+        <button type="submit" class="btn">Submit Report</button>
+
+    </form>
+</section>
+
+<!-- REPORTS -->
+<section id="reports" class="section">
+    <small>02 — REPORTS</small>
+
+    <h2>Recent <span>Rescues</span></h2>
+
+    <div id="reportsList"></div>
+</section>
+
+<!-- HELP -->
+<section id="help" class="section">
+    <small>03 — GET HELP</small>
+
+    <h2>Nearby <span>Animal Help</span></h2>
+
+    <div class="filters">
+        <button class="filter-btn active" data-area="all">All</button>
+        <button class="filter-btn" data-area="south">South</button>
+        <button class="filter-btn" data-area="western">Western</button>
+        <button class="filter-btn" data-area="other">Central / Navi Mumbai</button>
+    </div>
+
+    <div id="helpList"></div>
+</section>
+
+<footer>
+    <h2>Be their voice. 🐾</h2>
+    <p>Small actions can save lives.</p>
+</footer>
+
+<script src="script.js"></script>
+
+</body>
+</html>
