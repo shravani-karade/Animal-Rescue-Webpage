@@ -1,133 +1,346 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>RescuePaws</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RescuePaws 🐾 | Report, Rescue & Rehome</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Google Fonts for modern typography -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
-
 <body>
 
-<nav>
-    <b>🐾 RescuePaws</b>
-    <div>
-        <a href="#home">Home</a>
-        <a href="#report">Report</a>
-        <a href="#health">Health</a>
-        <a href="#help">Help</a>
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#home" class="logo">
+        <span class="logo-icon">🐾</span>
+        <span class="logo-text">RescuePaws</span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Toggle navigation">
+        ☰
+      </button>
+      <nav class="nav-menu" id="navMenu">
+        <a href="#home" class="nav-link active">Home</a>
+        <a href="#mission" class="nav-link">Our Mission</a>
+        <a href="#report-section" class="nav-link">Report</a>
+        <a href="#reports-section" class="nav-link">Reports</a>
+        <a href="#adopt-section" class="nav-link">Adopt</a>
+        <a href="#reviews-section" class="nav-link">Reviews</a>
+        <a href="#help-section" class="nav-link nav-btn-highlight">Help</a>
+      </nav>
     </div>
-</nav>
+  </header>
 
-<section id="home" class="hero">
-    <div>
-        <p>EVERY ANIMAL DESERVES A CHANCE</p>
-        <h1>Help. Rescue.<br><span>Protect.</span></h1>
-        <p>Report animals in need and connect with animal rescuers.</p>
-        <a class="btn" href="#report">Report an Animal →</a>
+  <!-- Hero / Home Section -->
+  <section id="home" class="hero-section">
+    <div class="hero-overlay"></div>
+    <div class="container hero-content">
+      <span class="hero-badge">🐾 Report • Rescue • Rehome</span>
+      <h1>Every Animal Deserves A Second Chance</h1>
+      <p class="hero-tagline">
+        Connecting compassionate citizens with animal rescue groups to track and record an animal's journey to safety.
+      </p>
+      <div class="hero-buttons">
+        <a href="#report-section" class="btn btn-primary">🚨 Report an Animal</a>
+        <a href="#reports-section" class="btn btn-secondary">🔎 View Rescue Reports</a>
+      </div>
     </div>
-</section>
+  </section>
 
+  <!-- Our Mission Section -->
+  <section id="mission" class="mission-section">
+    <div class="container">
+      <div class="section-title text-center">
+        <h2>Our Mission</h2>
+        <p class="slogan">Report. Rescue. Rehome.</p>
+      </div>
+      
+      <div class="mission-card">
+        <div class="mission-icon"></div>
+        <blockquote class="mission-text">
+          “Our mission is to give every animal in need a chance to be seen, rescued and cared for. 
+          RescuePaws connects people who find animals in distress with rescue support and helps 
+          create a record of their journey from reporting to rescue.”
+        </blockquote>
+      </div>
 
-<section id="report" class="section">
-    <small>01 — REPORT</small>
-    <h2>Report an <span>Animal</span></h2>
-
-    <form id="reportForm">
-
-        <select id="animalType" required>
-            <option value="">Select animal</option>
-            <option>Dog</option>
-            <option>Cat</option>
-            <option>Bird</option>
-            <option>Cow</option>
-            <option>Other</option>
-        </select>
-
-        <input id="location" placeholder="Location" required>
-
-        <textarea id="description"
-                  placeholder="Describe the animal's condition"
-                  required></textarea>
-
-        <input id="reporterName"
-               placeholder="Your name"
-               required>
-
-        <input id="contact"
-               placeholder="10-digit mobile number"
-               maxlength="10"
-               required>
-
-        <p id="contactError" class="error"></p>
-
-        <button class="btn" type="submit">
-            Submit Report
-        </button>
-
-    </form>
-</section>
-
-
-<section id="health" class="section">
-
-    <small>02 — HEALTH</small>
-
-    <h2>Basic <span>Animal Care</span></h2>
-
-    <select id="healthSelect">
-        <option value="">Choose a problem</option>
-        <option value="cold">🤧 Cold / Sneezing</option>
-        <option value="wound">🩹 Small Wound</option>
-        <option value="water">💧 Dehydration</option>
-        <option value="heat">☀️ Heat Stress</option>
-        <option value="ticks">🐜 Ticks / Fleas</option>
-        <option value="injury">🦴 Injury</option>
-    </select>
-
-    <div id="healthResult" class="health-card">
-        <h3>🐾 Select a problem</h3>
-        <p>Basic care information will appear here.</p>
+      <!-- Community Banner -->
+      <div class="community-banner">
+        <h3>🐾 Become a Part of Our Community</h3>
+        <p>
+          Join the <strong>RescuePaws community</strong> and help make a difference in the lives of stray and abandoned animals. 
+          Every small act of kindness can help an animal feel safer, healthier, and cared for.
+        </p>
+        <div class="community-tags">
+          <span>Feed Stray Animals</span>
+          <span>•</span>
+          <span>Care for Animals</span>
+          <span>•</span>
+          <span>Foster</span>
+          <span>•</span>
+          <span>Rescue</span>
+          <span>•</span>
+          <span>Adopt</span>
+          <span>•</span>
+          <span>Support</span>
+        </div>
+      </div>
     </div>
+  </section>
 
-</section>
+  <!-- Report an Animal Form Section -->
+  <section id="report-section" class="report-section">
+    <div class="container">
+      <div class="section-title text-center">
+        <h2> Report an Animal</h2>
+        <p>Provide details below. Reported Date & Time will be recorded automatically.</p>
+      </div>
 
+      <form id="rescueReportForm" class="form-card">
+        <div class="form-grid">
+          
+          <!-- Animal Type -->
+          <div class="form-group">
+            <label for="animalType">Animal Type *</label>
+            <select id="animalType" required>
+              <option value="" disabled selected>Select animal type...</option>
+              <option value="Dog">🐕 Dog</option>
+              <option value="Cat">🐈 Cat</option>
+              <option value="Bird">🕊️ Bird</option>
+              <option value="Cow">🐄 Cow / Livestock</option>
+              <option value="Other">🐾 Other Animal</option>
+            </select>
+          </div>
 
-<section id="reports" class="section">
+          <!-- Urgency Level -->
+          <div class="form-group">
+            <label for="urgency">Urgency Level *</label>
+            <select id="urgency" required>
+              <option value="Normal">🟢 Normal (Needs help/food/shelter)</option>
+              <option value="Urgent">🟠 Urgent (Mild injury or sick)</option>
+              <option value="Critical">🔴 Critical (Immediate emergency)</option>
+            </select>
+          </div>
 
-    <small>03 — REPORTS</small>
+          <!-- Location -->
+          <div class="form-group">
+            <label for="location">Location / Area *</label>
+            <input type="text" id="location" placeholder="e.g., Near Station, Andheri West" required />
+          </div>
 
-    <h2>Rescue <span>Reports</span></h2>
+          <!-- Animal Photo URL -->
+          <div class="form-group">
+            <label for="photoUrl">Animal Photo (Image URL)</label>
+            <input type="url" id="photoUrl" placeholder="Paste image link (optional)" />
+          </div>
 
-    <div id="reportsList"></div>
+          <!-- Reporter Name -->
+          <div class="form-group">
+            <label for="reporterName">Reporter Name *</label>
+            <input type="text" id="reporterName" placeholder="Your full name" required />
+          </div>
 
-</section>
+          <!-- Contact Number -->
+          <div class="form-group">
+            <label for="reporterContact">Contact Number *</label>
+            <input type="tel" id="reporterContact" placeholder="Your phone number" required />
+          </div>
 
+        </div>
 
-<section id="help" class="section">
+        <!-- Description / Condition -->
+        <div class="form-group">
+          <label for="description">Description / Condition *</label>
+          <textarea id="description" rows="3" placeholder="Describe the animal's physical condition, exact landmark, and situation..." required></textarea>
+        </div>
 
-    <small>04 — GET HELP</small>
-
-    <h2>NGOs & <span>Veterinarians</span></h2>
-
-    <div class="filters">
-        <button class="filter-btn active" data-area="all">All</button>
-        <button class="filter-btn" data-area="south">South</button>
-        <button class="filter-btn" data-area="western">Western</button>
-        <button class="filter-btn" data-area="central">Central</button>
+        <button type="submit" class="btn btn-submit">Submit Rescue Report </button>
+      </form>
     </div>
+  </section>
 
-    <div id="helpList"></div>
+  <!-- Rescue Reports & Main Feature Section -->
+  <section id="reports-section" class="reports-section">
+    <div class="container">
+      <div class="section-title text-center">
+        <h2>🔎 Rescue Reports</h2>
+        <p>Track reported animals, monitor their rescue status, and update their journey in real time.</p>
+      </div>
 
-</section>
+      <!-- Live Statistics Dashboard -->
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">🐾</div>
+          <div class="stat-info">
+            <span class="stat-number" id="statTotal">0</span>
+            <span class="stat-label">Total Reports</span>
+          </div>
+        </div>
+        <div class="stat-card urgent-stat">
+          <div class="stat-icon"></div>
+          <div class="stat-info">
+            <span class="stat-number" id="statUrgent">0</span>
+            <span class="stat-label">Urgent / Critical</span>
+          </div>
+        </div>
+        <div class="stat-card rescued-stat">
+          <div class="stat-icon"></div>
+          <div class="stat-info">
+            <span class="stat-number" id="statRescued">0</span>
+            <span class="stat-label">Rescued</span>
+          </div>
+        </div>
+        <div class="stat-card adopted-stat">
+          <div class="stat-icon"></div>
+          <div class="stat-info">
+            <span class="stat-number" id="statAdopted">0</span>
+            <span class="stat-label">Adopted</span>
+          </div>
+        </div>
+      </div>
 
+      <!-- Search & Filter Controls -->
+      <div class="filter-bar">
+        <div class="search-box">
+          <span></span>
+          <input type="text" id="searchInput" placeholder="Search by animal or location (e.g. Dog, Andheri)..." />
+        </div>
+        <div class="filter-group">
+          <select id="filterStatus">
+            <option value="ALL">All Statuses</option>
+            <option value="Pending">Pending Only</option>
+            <option value="Rescued">Rescued Only</option>
+          </select>
+          <select id="filterUrgency">
+            <option value="ALL">All Urgencies</option>
+            <option value="Critical">Critical</option>
+            <option value="Urgent">Urgent</option>
+            <option value="Normal">Normal</option>
+          </select>
+        </div>
+      </div>
 
-<footer>
-    <h2>Be their voice. 🐾</h2>
-    <p>Small actions can save lives.</p>
-</footer>
+      <!-- Reports Dynamic Grid Container -->
+      <div id="reportsContainer" class="cards-grid">
+        <!-- Generated by script.js -->
+      </div>
+    </div>
+  </section>
 
-<script src="script.js"></script>
+  <!-- Adoptable Animals Section -->
+  <section id="adopt-section" class="adopt-section">
+    <div class="container">
+      <div class="section-title text-center">
+        <h2>Animals Looking for a Forever Home</h2>
+        <p>Rescued animals ready to find loving families.</p>
+      </div>
 
+      <div id="adoptablesContainer" class="cards-grid">
+        <!-- Generated by script.js -->
+      </div>
+    </div>
+  </section>
+
+  <!-- Reviews Section -->
+  <section id="reviews-section" class="reviews-section">
+    <div class="container">
+      <div class="section-title text-center">
+        <h2>⭐ What People Say</h2>
+        <p>Feedback about the RescuePaws platform and community impact.</p>
+      </div>
+
+      <div id="reviewsContainer" class="reviews-grid">
+        <!-- Generated by script.js -->
+      </div>
+
+      <!-- Add Review Form -->
+      <div class="add-review-box">
+        <h3>Share Your Platform Feedback</h3>
+        <form id="reviewForm" class="review-form">
+          <input type="text" id="reviewerName" placeholder="Your Name" required />
+          <select id="reviewerRating" required>
+            <option value="5">⭐⭐⭐⭐⭐ (5 Stars)</option>
+            <option value="4">⭐⭐⭐⭐ (4 Stars)</option>
+            <option value="3">⭐⭐⭐ (3 Stars)</option>
+          </select>
+          <textarea id="reviewerText" placeholder="Write a brief review of RescuePaws..." required></textarea>
+          <button type="submit" class="btn btn-secondary">Submit Review ⭐</button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- Emergency Help Section -->
+  <section id="help-section" class="help-section">
+    <div class="container">
+      <div class="section-title text-center">
+        <h2>Emergency Help & Guidance</h2>
+        <p>Essential steps to take when finding an animal in distress.</p>
+      </div>
+
+      <div class="help-grid">
+        <div class="help-card">
+          <h3>1. Ensure Safety</h3>
+          <p>Approach with caution. Keep a safe distance if the animal is startled, frightened, or aggressive.</p>
+        </div>
+        <div class="help-card">
+          <h3>2. Take Clear Photos</h3>
+          <p>Capture clear pictures of the animal and recognizable landmarks to assist rescuers in locating them fast.</p>
+        </div>
+        <div class="help-card">
+          <h3>3. Submit a Report</h3>
+          <p>Fill out the report form on RescuePaws so local volunteers receive real-time notifications.</p>
+        </div>
+        <div class="help-card highlight-card">
+          <h3>📞 Emergency Helplines</h3>
+          <p><strong>24/7 Support:</strong> +91 98765 43210</p>
+          <p><strong>Ambulance Support:</strong> +91 1800 123 4567</p>
+          <p><strong>Email:</strong> emergency@rescuepaws.org</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Adoption Interest Modal -->
+  <div id="adoptionModal" class="modal">
+    <div class="modal-content">
+      <span class="close-modal" id="closeAdoptionModal">&times;</span>
+      <h3>Adoption Application</h3>
+      <p id="adoptionModalSub">Express interest in adopting</p>
+      <form id="adoptionForm">
+        <input type="hidden" id="adoptPetName" />
+        <div class="form-group">
+          <label for="applicantName">Your Name *</label>
+          <input type="text" id="applicantName" placeholder="Full name" required />
+        </div>
+        <div class="form-group">
+          <label for="applicantContact">Contact Number / Email *</label>
+          <input type="text" id="applicantContact" placeholder="Phone or email" required />
+        </div>
+        <div class="form-group">
+          <label for="applicantMessage">Message / Living Situation *</label>
+          <textarea id="applicantMessage" rows="3" placeholder="Tell us about your home, family, or pet experience..." required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Send Application Interest</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Message -->
+  <div id="toast" class="toast">Action completed successfully!</div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container text-center">
+      <p>🐾 <strong>RescuePaws</strong> — Connecting hearts, saving lives.</p>
+      <p class="footer-sub">Report. Rescue. Rehome.</p>
+      <p class="copyright">&copy; 2026 RescuePaws Platform. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
 </body>
 </html>
